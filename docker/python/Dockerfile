@@ -25,7 +25,7 @@ ENV PATH="$RYE_HOME/shims:$PATH"
 
 # RYE_INSTALL_OPTION is required to build.
 # See: https://github.com/mitsuhiko/rye/issues/246
-RUN curl -sSf https://rye-up.com/get | RYE_NO_AUTO_INSTALL=1 RYE_INSTALL_OPTION="--yes" bash
+RUN curl -sSf https://rye.astral.sh/get | RYE_NO_AUTO_INSTALL=1 RYE_INSTALL_OPTION="--yes" bash
 
 # Download dependencies as a separate step to take advantage of Docker's caching.
 # Leverage a bind mount to some files to avoid having to copy them into
