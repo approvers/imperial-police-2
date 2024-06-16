@@ -1,5 +1,5 @@
 # Copied from https://github.com/astral-sh/rye/discussions/239#discussioncomment-6033855 and modified
-FROM python:3.12 AS rye
+FROM python:3.12.3 AS rye
 
 # Prevents Python from writing pyc files.
 ENV PYTHONDONTWRITEBYTECODE=1
