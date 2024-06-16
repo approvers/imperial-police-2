@@ -11,6 +11,8 @@ services:
       - postgres
     # entrypoint: Do nothing for now
     entrypoint: tail -f /dev/null
+    restart: unless-stopped
+    tty: true
 
   postgres:
     build:
@@ -25,6 +27,8 @@ services:
     environment:
       POSTGRES_USER: ${IMPERIAL_POLICE_2_POSTGRES_USER}
       POSTGRES_PASSWORD: ${IMPERIAL_POLICE_2_POSTGRES_PASSWORD}
+    restart: unless-stopped
+    tty: true
 
 volumes:
   postgres_data:
