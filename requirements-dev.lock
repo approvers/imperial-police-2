@@ -9,3 +9,24 @@
 #   generate-hashes: false
 
 -e file:.
+black==24.4.2
+click==8.1.7
+    # via black
+iniconfig==2.0.0
+    # via pytest
+mypy==1.10.0
+mypy-extensions==1.0.0
+    # via black
+    # via mypy
+packaging==24.1
+    # via black
+    # via pytest
+pathspec==0.12.1
+    # via black
+platformdirs==4.2.2
+    # via black
+pluggy==1.5.0
+    # via pytest
+pytest==8.2.2
+typing-extensions==4.12.2
+    # via mypy
