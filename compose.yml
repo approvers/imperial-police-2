@@ -5,6 +5,8 @@ services:
       dockerfile: ./docker/python/Dockerfile
     volumes:
       - .:/workspace
+    networks:
+      - backend
     depends_on:
       - postgres
     # entrypoint: Do nothing for now
@@ -16,15 +18,20 @@ services:
       dockerfile: ./docker/postgres/Dockerfile
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - backend
+    ports:
+      - "54321:5432"
     environment:
       POSTGRES_USER: ${IMPERIAL_POLICE_2_POSTGRES_USER}
       POSTGRES_PASSWORD: ${IMPERIAL_POLICE_2_POSTGRES_PASSWORD}
 
 volumes:
   postgres_data:
+    driver: local
 
 networks:
-  default:
+  backend:
     name: imperial_police_2
     enable_ipv6: true
     driver: bridge
