@@ -12,7 +12,7 @@ services:
     depends_on:
       - postgres
     # entrypoint: Do nothing for now
-    entrypoint: tail -f /dev/null
+    command: tail -f /dev/null
     restart: unless-stopped
     tty: true
 
