@@ -4,6 +4,8 @@ services:
       context: .
       dockerfile: ./docker/python/Dockerfile
     volumes:
+      # Not to mount .venv directory, separate the directory as a volume
+      - python_venv:/workspace/.venv
       - .:/workspace
     networks:
       - backend
@@ -31,6 +33,8 @@ services:
     tty: true
 
 volumes:
+  python_venv:
+    driver: local
   postgres_data:
     driver: local
 
