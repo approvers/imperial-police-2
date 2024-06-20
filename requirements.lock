@@ -9,3 +9,5 @@
 #   generate-hashes: false
 
 -e file:.
+python-dotenv==1.0.1
+    # via imperial-police-2

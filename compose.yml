@@ -3,12 +3,20 @@ services:
     build:
       context: .
       dockerfile: ./docker/python/Dockerfile
+      # WARNING: Change the target to prod when deploying to `prod`
+      target: dev
     volumes:
+      # Not to mount .venv directory, separate the directory as a volume
+      - python_venv:/workspace/.venv
       - .:/workspace
+    networks:
+      - backend
     depends_on:
       - postgres
     # entrypoint: Do nothing for now
-    entrypoint: tail -f /dev/null
+    command: tail -f /dev/null
+    restart: unless-stopped
+    tty: true
 
   postgres:
     build:
@@ -16,15 +24,24 @@ services:
       dockerfile: ./docker/postgres/Dockerfile
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - backend
+    ports:
+      - "54321:5432"
     environment:
       POSTGRES_USER: ${IMPERIAL_POLICE_2_POSTGRES_USER}
       POSTGRES_PASSWORD: ${IMPERIAL_POLICE_2_POSTGRES_PASSWORD}
+    restart: unless-stopped
+    tty: true
 
 volumes:
+  python_venv:
+    driver: local
   postgres_data:
+    driver: local
 
 networks:
-  default:
+  backend:
     name: imperial_police_2
     enable_ipv6: true
     driver: bridge

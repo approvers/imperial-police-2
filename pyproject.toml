@@ -5,7 +5,9 @@ description = "2nd generation of imperial police bot."
 authors = [
     { name = "Colk-tech", email = "colk@approvers.dev" }
 ]
-dependencies = []
+dependencies = [
+    "python-dotenv>=1.0.1",
+]
 readme = "README.md"
 requires-python = ">= 3.12"
 
@@ -15,7 +17,13 @@ build-backend = "hatchling.build"
 
 [tool.rye]
 managed = true
-dev-dependencies = []
+dev-dependencies = [
+    "mypy>=1.10.0",
+    "flake8>=7.0.0",
+    "black>=24.4.2",
+    "pytest>=8.2.2",
+    "pytest-cov>=5.0.0",
+]
 
 [tool.hatch.metadata]
 allow-direct-references = true
