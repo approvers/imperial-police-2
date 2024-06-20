@@ -30,11 +30,11 @@ RUN curl -sSf https://rye.astral.sh/get | RYE_NO_AUTO_INSTALL=1 RYE_INSTALL_OPTI
 # Download dependencies as a separate step to take advantage of Docker's caching.
 # Leverage a bind mount to some files to avoid having to copy them into
 # into this layer.
-RUN --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
-    --mount=type=bind,source=requirements.lock,target=requirements.lock \
-    --mount=type=bind,source=.python-version,target=.python-version \
-    --mount=type=bind,source=README.md,target=README.md \
-    rye sync --no-dev --no-lock
+COPY pyproject.toml pyproject.toml
+COPY requirements.lock requirements.lock
+COPY .python-version .python-version
+COPY README.md README.md
+RUN rye sync --no-dev --no-lock
 
 RUN . .venv/bin/activate
 
@@ -43,12 +43,12 @@ RUN . .venv/bin/activate
 # closed inside the container, so you don't need to be aware of the virtual environment
 FROM rye AS dev
 
-RUN --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
-    --mount=type=bind,source=requirements.lock,target=requirements.lock \
-    --mount=type=bind,source=requirements-dev.lock,target=requirements-dev.lock \
-    --mount=type=bind,source=.python-version,target=.python-version \
-    --mount=type=bind,source=README.md,target=README.md \
-    rye sync --no-lock
+COPY pyproject.toml pyproject.toml
+COPY requirements.lock requirements.lock
+COPY requirements-dev.lock requirements-dev.lock
+COPY .python-version .python-version
+COPY README.md README.md
+RUN rye sync --no-lock
 
 # Stage for production
 FROM rye AS run
