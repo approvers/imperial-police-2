@@ -12,6 +12,8 @@
 black==24.4.2
 click==8.1.7
     # via black
+coverage==7.5.3
+    # via pytest-cov
 flake8==7.0.0
 iniconfig==2.0.0
     # via pytest
@@ -35,6 +37,8 @@ pycodestyle==2.11.1
 pyflakes==3.2.0
     # via flake8
 pytest==8.2.2
+    # via pytest-cov
+pytest-cov==5.0.0
 python-dotenv==1.0.1
     # via imperial-police-2
 typing-extensions==4.12.2
