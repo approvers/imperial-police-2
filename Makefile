@@ -33,7 +33,7 @@ flake8:
 
 .PHONY: mypy
 mypy:
-	docker compose run --rm python bash -c "python RUN_COMMAND.py rye run mypy ./"
+	docker compose run --rm python bash -c "python run_command.py rye run mypy ./"
 
 .PHONY: black
 black:
