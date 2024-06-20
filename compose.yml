@@ -3,6 +3,8 @@ services:
     build:
       context: .
       dockerfile: ./docker/python/Dockerfile
+      # WARNING: Change the target to prod when deploying to `prod`
+      target: dev
     volumes:
       # Not to mount .venv directory, separate the directory as a volume
       - python_venv:/workspace/.venv
