@@ -9,5 +9,16 @@
 #   generate-hashes: false
 
 -e file:.
+alembic==1.13.1
+    # via imperial-police-2
+mako==1.3.5
+    # via alembic
+markupsafe==2.1.5
+    # via mako
 python-dotenv==1.0.1
     # via imperial-police-2
+sqlalchemy==2.0.31
+    # via alembic
+typing-extensions==4.12.2
+    # via alembic
+    # via sqlalchemy
