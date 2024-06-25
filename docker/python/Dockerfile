@@ -1,5 +1,5 @@
 # Copied from https://github.com/astral-sh/rye/discussions/239#discussioncomment-6033855 and modified
-FROM python:3.12.3 AS rye
+FROM python:3.12.3 AS base
 
 # Prevents Python from writing pyc files.
 ENV PYTHONDONTWRITEBYTECODE=1
@@ -34,24 +34,34 @@ COPY pyproject.toml pyproject.toml
 COPY requirements.lock requirements.lock
 COPY .python-version .python-version
 COPY README.md README.md
-RUN rye sync --no-dev --no-lock
+
+# Use a cache mount for the rye cache to improve build performance.
+RUN --mount=type=cache,target=/root/.cache/rye rye sync --no-dev --no-lock
 
 RUN . .venv/bin/activate
 
 # Stage for development.
 # The development environment assumes a devcontainer and the environment is
 # closed inside the container, so you don't need to be aware of the virtual environment
-FROM rye AS dev
+FROM base AS dev
 
+# Re-copy only if necessary to optimize caching
 COPY pyproject.toml pyproject.toml
 COPY requirements.lock requirements.lock
 COPY requirements-dev.lock requirements-dev.lock
-COPY .python-version .python-version
-COPY README.md README.md
-RUN rye sync --no-lock
+
+# Check if dependencies have changed to decide whether to re-run rye sync
+RUN \
+    if cmp -s requirements.lock requirements.lock.new; then \
+        echo "Dependencies have not changed, using cache."; \
+    else \
+        echo "Dependencies have changed, running rye sync."; \
+        cp requirements.lock requirements.lock.new; \
+        rye sync --no-lock; \
+    fi
 
 # Stage for production
-FROM rye AS run
+FROM base AS run
 
 # Create a non-privileged user that the app will run under.
 # See https://docs.docker.com/develop/develop-images/dockerfile_best-practices/#user
