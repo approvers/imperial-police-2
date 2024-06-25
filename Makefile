@@ -19,6 +19,11 @@ up:
 down:
 	docker compose down
 
+.PHONY: update_deps
+update_deps:
+	docker compose build --no-cache python
+	docker compose up -d --force-recreate --build
+
 .PHONY: logs
 logs:
 	docker compose logs -f
