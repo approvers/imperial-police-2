@@ -11,6 +11,8 @@
 -e file:.
 alembic==1.13.1
     # via imperial-police-2
+annotated-types==0.7.0
+    # via pydantic
 black==24.4.2
 click==8.1.7
     # via black
@@ -42,6 +44,15 @@ pluggy==1.5.0
     # via pytest
 pycodestyle==2.11.1
     # via flake8
+pydantic==2.7.4
+    # via imperial-police-2
+    # via pydantic-settings
+pydantic-config==0.3.0
+    # via imperial-police-2
+pydantic-core==2.18.4
+    # via pydantic
+pydantic-settings==2.3.4
+    # via pydantic-config
 pyflakes==3.2.0
     # via flake8
 pytest==8.2.2
@@ -49,9 +60,12 @@ pytest==8.2.2
 pytest-cov==5.0.0
 python-dotenv==1.0.1
     # via imperial-police-2
+    # via pydantic-settings
 sqlalchemy==2.0.31
     # via alembic
 typing-extensions==4.12.2
     # via alembic
     # via mypy
+    # via pydantic
+    # via pydantic-core
     # via sqlalchemy
